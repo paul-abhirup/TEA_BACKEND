@@ -1,6 +1,7 @@
 // import mongoose from "mongoose";
 // import { DB_NAME } from "./constants";
 
+
 // Approach - 1
 // function connectDB(){}
 // connectDB()
@@ -15,6 +16,9 @@
   // Noob Approach
   // this is a bad approach because the index.js got polluted 
 
+
+import express from "express"
+const app = express();
 
 ;( async () => {
   try {
@@ -50,13 +54,26 @@ import mongoose from "mongoose";
 import { DB_NAME } from "./constants.js";
 import connectDB from "./db/index.js";
 
+
 dotenv.config({
   path: './env' 
 })
 
 
 
-connectDB();
+// its a async await code so it will also return a promise 
+connectDB()
+.then(() => {
+  // sometimes its better to listen to app.error before app.listen
+  // add a app.error here 
+  
+  app.listen(process.env.PORT || 8000 , () => {
+    console.log(`Server is runnig at ${process.env.PORT}`);
+  } )
+})
+.catch((err) => {
+  console.log("MongoDB connection failed !!! ", err);
+})
 
 
 
