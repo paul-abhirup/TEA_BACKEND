@@ -33,7 +33,7 @@ const app = express();
 
   }catch(error){
     console.error("ERROR: ",error)
-    throw err
+    throw error
 
   }
 })()
@@ -44,7 +44,7 @@ const app = express();
 
 
 // require('dotenv').config({path: './env'})
-
+// its a async await code so it will also return a promise 
 // for more improved version // this is better because it creates concistency in code 
 
 import dotenv from "dotenv"
@@ -61,12 +61,14 @@ dotenv.config({
 
 
 
-// its a async await code so it will also return a promise 
 connectDB()
 .then(() => {
   // sometimes its better to listen to app.error before app.listen
   // add a app.error here 
-  
+  app.on("error", (error) => {
+    console.log("ERRR: ", error);
+    throw error
+  })
   app.listen(process.env.PORT || 8000 , () => {
     console.log(`Server is runnig at ${process.env.PORT}`);
   } )
