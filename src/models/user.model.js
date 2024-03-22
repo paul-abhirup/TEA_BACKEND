@@ -51,17 +51,12 @@ const userSchema = new Schema(
   }
 )
 
-// userSchema.pre("save", () => {}); //dont write arrow function like this because in arrow function there is no context of this
-// here the context of the function is imp
-
 userSchema.pre("save",async function (next) {
   if(!this.isModified("password")) return next();
 
-  this.password = bcrypt.hash(this.password, 10) // 10 is the no of hashing rounds 
+  this.password = bcrypt.hash(this.password, 10) 
   next()
-}) 
-//async is used because its a slow process 
-//next because the midleware is used 
+})
 
 userSchema.methods.isPasswordCorrect = async function(password){
   return await bcrypt.compare(password, this.password)
