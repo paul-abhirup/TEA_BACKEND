@@ -6,7 +6,7 @@ const app = express();
 
 // cross orign resource pairing 
 app.use(cors({
-  orgin: process.env.CORS_ORIGIN,
+  origin: process.env.CORS_ORIGIN,
   credentials: true
 })) 
 app.use(express.json({limit: "16kb"}))
@@ -22,7 +22,7 @@ import userRouter from "./routes/user.routes.js"
 
 //routes declaration
 app.use("/api/v1/users", userRouter)
-// https://localhost:3000/api/v1/users/register
+// // https://localhost:3000/api/v1/users/register
 
 export { app }
 
